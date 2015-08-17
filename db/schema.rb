@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150816023031) do
+ActiveRecord::Schema.define(version: 20150817061708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,17 @@ ActiveRecord::Schema.define(version: 20150816023031) do
     t.string   "poster_url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "video_url"
   end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "movie_id"
+    t.integer  "buyer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "purchases", ["movie_id", "buyer_id"], name: "index_purchases_on_movie_id_and_buyer_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150816023031) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "braintree_customer_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

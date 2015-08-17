@@ -24,5 +24,14 @@
     		</div>
   		</div>
   <%end%>
+   
+   <% unless current_user.cart_count.zero? %>
+	   <%= link_to '', class: 'button clear_cart', data: { removeurl: remove_all_from_cart_path } do %>
+        <i class="fi-shopping-cart"></i>
+        <span>Clear Cart</span>
+      <%end%> 
+   <% end %>
 
+   <%= link_to 'Checkout', new_transaction_path, class: 'button checkout' unless current_user.get_cart_movies.blank? %>
+     
 </div>

@@ -1,4 +1,6 @@
 class Movie < ActiveRecord::Base
+  has_many :purchases
+  has_many :buyers, through: :purchases 
   def poster
     "http://ia.media-imdb.com/images/M/#{poster_url}"
   end
@@ -13,5 +15,9 @@ class Movie < ActiveRecord::Base
     else
       "Add to"
     end
+  end
+
+  def video_link
+    video_url.gsub('watch?v=', 'embed/')
   end
 end

@@ -15,6 +15,11 @@ class CartsController < ApplicationController
   	$redis.srem current_user_cart, params[:movie_id]
   	render json: current_user.cart_count, status: 200
   end
+
+  def remove_all
+  	$redis.del current_user_cart
+    render json: current_user.cart_count, status: 200 
+  end
   
   private
 
